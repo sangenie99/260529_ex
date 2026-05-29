@@ -1,36 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>this is memo</title>
-    <!-- favicon, og, css framework setting, ga, hostdog-->
-    
-    <link rel="stylesheet" href="style.css">
+    <title>Cozy Daily Memo</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <div id="container">
-      <h1>메모 하러 가기</h1>
-      <button>이동</button>
-    </div>
-    <script>
-        const container = document.querySelector("#container");
-        const button = document.querySelector("container >button");
-        // '>' 하위
-      document.addEventListener("DOMContentLoaded", main);
-
-      function main() {
-        console.log("DOM 로딩 완료");
-        // 이벤트 타입 누락하거나 혼동하지 말 것(click <-> submit, input <-> change)
-        button.addEventListener("click", () => {
-            // event 생략해도 된다.
-            // 1. event.preventDefault -> form
-            // 2. event.target
-            location.href = "memo.html";
-            // 새창 띄우기는요?
-            // window.open("memo.html")
-        })
-      }
-    </script>
+  <body class="home-body">
+    <main class="home-shell">
+      <p class="eyebrow">Cozy Daily Memo</p>
+      <h1 class="hero-title">메모를 남기자!</h1>
+      <p class="hero-copy">
+        오늘의 생각을 가볍게 적고, 메모 화면으로 이어서 확인해보세요.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-btn" href="memo.html">메모하러 가기</a>
+        <a class="ghost-btn" href="memo.html#memoList">메모 목록 보기</a>
+      </div>
+    </main>
   </body>
 </html>

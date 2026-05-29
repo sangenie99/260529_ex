@@ -3,182 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>메모를 남기자!</title>
-    <style>
-      /* 전체 공통으로 작동해야하는 태그 수준의 서식 */
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-      }
-
-      textarea {
-        resize: none;
-      }
-      /* 반복해서 쓰이는 내용은 클래스로 작성 */
-      .center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      /* id로 특정하게 쓸 요소들에 대한 서식 */
-      /* id를 의미하는 선택자 # */
-      #page {
-        height: 100vh;
-        flex-direction: column;
-      }
-
-      #container {
-        flex-direction: column;
-      }
-
-      #container h1 {
-        /* align, justify */
-        text-align: center;
-      }
-
-      #memoWriter {
-        flex-direction: column;
-        gap: 8px;
-        background-color: beige;
-        padding: 16px;
-        border: 1px solid gray;
-        border-radius: 8px;
-        /* 원/타원 만들 때 */
-        /* border-radius: 50%; */
-      }
-
-      #memoWriter button {
-        padding: 6px 12px;
-        /* margin, padding : 전체 */
-        /* margin, padding : 위 아래 */
-        /* margin, padding : 위 오 아 왼 */
-      }
-
-      #memoList {
-        gap: 8px;
-        padding: 8px;
-        flex-wrap: wrap;
-      }
-
-      #memoList div {
-        width: 240px;
-        height: 160px;
-        border: 1px solid gray;
-        border-radius: 8px;
-        padding: 16px;
-        /* https://colorhunt.co/ */
-        background-color: #fff7c5;
-      }
-    </style>
+    <title>메모를 남기자! - Cozy Daily Memo</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style1.css" />
   </head>
-  <body>
-    <section id="page" class="center">
-      <section id="container" class="center">
-        <h1>메모를 남기자!</h1>
-        <form id="memoWriter" class="center">
-          <!-- validation : 검증 -->
-          <!-- 프런트엔드/브라우저/화면에서의 검증은 모두 회피/조작 -->
-          <textarea name="memo" required></textarea>
-          <div>
-          <button>작성</button>
-          <button id="reset" type="button">리셋</button>
+  <body class="memo-body">
+    <header class="topbar">
+      <a class="back-link" href="index.html">메인으로</a>
+      <div>
+        <p class="eyebrow">Cozy Daily Memo</p>
+        <h1 class="page-title">메모를 남기자!</h1>
+      </div>
+      <button class="ghost-btn sound-btn" id="soundToggle" type="button">
+        음악 켜기
+      </button>
+    </header>
+
+    <main class="memo-shell">
+      <section class="writer-panel">
+        <form id="memoWriter" class="memo-form">
+          <label class="field-label" for="memo">새 메모</label>
+          <textarea
+            id="memo"
+            name="memo"
+            placeholder="오늘의 메모를 입력하세요."
+            required
+          ></textarea>
+          <div class="form-actions">
+            <button class="primary-btn" type="submit">작성</button>
+            <button class="ghost-btn" id="resetButton" type="button">
+              리셋
+            </button>
           </div>
         </form>
-        <section id="memoList" class="center">
-          <!-- 작성된 메모를 배치 -->
+      </section>
+
+      <section class="list-panel">
+        <div class="section-head">
+          <h2>메모 목록</h2>
+          <button class="ghost-btn small-btn" id="clearAll" type="button">
+            전체 삭제
+          </button>
+        </div>
+        <p class="list-hint">저장된 메모는 브라우저에 남아 있습니다.</p>
+        <section id="memoList" class="memo-list" aria-live="polite"></section>
+        <section id="emptyState" class="empty-state">
+          <p>아직 작성된 메모가 없어요.</p>
         </section>
       </section>
-    </section>
-    <script>
-      document.addEventListener("DOMContentLoaded", main);
-
-      // DOM 요소
-      const memoWriter = document.querySelector("#memoWriter");
-      const memoList = document.querySelector("#memoList");
-
-      // 진입점. entrypoint
-      function main() {
-        console.log("DOM 로딩 완료");
-        memoWriter.addEventListener("submit", memoWriterHandler);
-        // 화면에 표시하면?
-        drawPrevMemo();
-      }
-
-      // 1. 일단 함수표현식으로 타입추론을 하면서 작성한다음에
-      // 2. 나중에 꺼내서 아래에 배치
-      function memoWriterHandler(event) {
-        // form의 기본 이벤트를 금지/정지 시킨다
-        event.preventDefault();
-        console.log("form 로직 시작");
-        const formData = new FormData(event.target);
-        // console.log(formData);
-        // console.log(...formData);
-        const memoText = formData.get("memo");
-        console.log(memoText);
-
-        // 데이터 추가 시 LocalStorage를 사용해서 영속성(persistence)
-        saveMemo(memoText);
-
-        // 추가할 텍스트
-        // 내가 호출되었을 때의 스코프가 아니라 선언되었을 때의 스코프를 기억한다 -> 렉시컬 스코프
-        // memoList는 기억하는데 memoText 기억 X.
-        drawMemoBox(memoText);
-
-        // const memoBox = document.createElement("div");
-        // // memoBox.classList.add
-        // memoBox.textContent = memoText;
-        // memoList.append(memoBox);
-      }
-
-      //   특정한 텍스트를, 특정한 리스트에 구현해서 넣겠다
-      function drawMemoBox(memoText) {
-        const memoBox = document.createElement("div");
-        // memoBox.classList.add
-        memoBox.textContent = memoText;
-        memoList.append(memoBox);
-      }
-
-      function saveMemo(memoText) {
-        // 가장 최근 메모 1개만 저장하겠다
-        // localStorage.setItem("memo", memoText);
-        // localStorage.setItem("memo", []); // 삭제할 때 불편
-        const prevMemo = localStorage.getItem("memo") ?? {};
-        let memoObj;
-        try {
-          // JSON text -> 객체
-          memoObj = JSON.parse(prevMemo);
-          // localStorage -> origin 공유
-        } catch (err) {
-          console.log(err);
-          memoObj = {};
-        }
-        // 현재 시간을 숫자로 표시한 값
-        const timeKey = Date.now();
-        memoObj[timeKey] = memoText;
-        console.log(memoObj);
-        // localStorage는 문자열 key, value
-        // 제대로 된 문자열 '변환' -> JSON.stringify, parse
-        localStorage.setItem("memo", JSON.stringify(memoObj));
-      }
-
-      function drawPrevMemo() {
-        // localStorage에서 데이터 빼오기
-        let prevMemo;
-        try {
-          prevMemo = JSON.parse(localStorage.getItem("memo"));
-        } catch {
-          prevMemo = {};
-        }
-        // timeKey : 메모값 -> 배열
-        console.log(prevMemo);
-        // 각각 메모 박스 그리기
-        for (const key in prevMemo) {
-          drawMemoBox(prevMemo[key]);
-        }
-      }
-    </script>
+    </main>
+    <script src="script.js"></script>
   </body>
 </html>

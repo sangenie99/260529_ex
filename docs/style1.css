@@ -1,0 +1,22 @@
+.empty-state {
+  display: none;
+  margin-top: 20px;
+  padding: 28px 18px;
+  border-radius: 24px;
+  border: 1px dashed rgba(61, 57, 46, 0.18);
+  color: #746a57;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.empty-state.show {
+  display: block;
+}
+
+.memo-card .delete-btn {
+  border: 1px solid rgba(61, 57, 46, 0.14);
+}
+
+.memo-card .delete-btn:hover {
+  background: rgba(255, 255, 255, 0.8);
+}

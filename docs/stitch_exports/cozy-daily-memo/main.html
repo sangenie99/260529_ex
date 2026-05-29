@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Memos - 메모를 남기자!</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Be+Vietnam+Pro:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#8d4d38",
+                    "primary-fixed": "#ffe087",
+                    "secondary": "#286b33",
+                    "primary-fixed-dim": "#ebc23e",
+                    "on-tertiary-container": "#8d4d38",
+                    "tertiary-container": "#ffcec0",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#07521d",
+                    "on-primary-fixed": "#241a00",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#ffd54f",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#2e7238",
+                    "surface-tint": "#735c00",
+                    "surface-variant": "#e4e3db",
+                    "background": "#fbf9f1",
+                    "secondary-fixed-dim": "#90d792",
+                    "secondary-fixed": "#abf4ac",
+                    "on-secondary-fixed": "#002107",
+                    "on-primary-container": "#735c00",
+                    "inverse-surface": "#30312c",
+                    "surface-container-low": "#f5f4ec",
+                    "on-primary-fixed-variant": "#574500",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f0eee6",
+                    "on-background": "#1b1c17",
+                    "secondary-container": "#abf4ac",
+                    "inverse-on-surface": "#f3f1e9",
+                    "surface-container-highest": "#e4e3db",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#eae8e0",
+                    "surface-dim": "#dcdad2",
+                    "inverse-primary": "#ebc23e",
+                    "on-tertiary-fixed": "#390c01",
+                    "primary": "#735c00",
+                    "outline-variant": "#d0c6ae",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f1",
+                    "on-surface": "#1b1c17",
+                    "surface": "#fbf9f1",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "outline": "#7f7662",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-surface-variant": "#4d4634",
+                    "on-tertiary-fixed-variant": "#713623",
+                    "tertiary-fixed-dim": "#ffb59e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "margin-desktop": "120px",
+                    "xl": "64px",
+                    "gutter": "16px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .memo-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .memo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(115, 92, 0, 0.08);
+        }
+        .squishy-button {
+            box-shadow: 0 4px 0px #b19400;
+        }
+        .squishy-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px #b19400;
+        }
+        .glass-nav {
+            backdrop-filter: blur(8px);
+        }
+        .corner-fold {
+            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top AppBar (from JSON guidance) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-base bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-sm">
+<button class="p-2 hover:bg-primary-container/20 rounded-full transition-colors active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">My Memos</h1>
+</div>
+<button class="p-2 hover:bg-primary-container/20 rounded-full transition-colors active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</header>
+<main class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop pt-32">
+<!-- Hero Section -->
+<section class="text-center mb-lg">
+<h2 class="font-display-lg text-display-lg text-primary mb-xs">메모를 남기자!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">오늘의 생각을 가볍게 기록해보세요.</p>
+</section>
+<!-- Input Area -->
+<section class="max-w-2xl mx-auto mb-xl">
+<form class="bg-surface-container-low p-md rounded-xl shadow-[0_4px_12px_rgba(115,92,0,0.05)] border-2 border-transparent focus-within:border-secondary transition-all" id="memoWriter">
+<textarea class="w-full bg-transparent border-none focus:ring-0 font-body-md text-on-surface placeholder:text-outline h-32 resize-none" id="memoContent" name="memo" placeholder="오늘의 메모를 입력하세요." required=""></textarea>
+<div class="flex justify-end mt-sm">
+<button class="squishy-button bg-primary-container text-on-primary-container font-label-md text-label-md px-lg py-sm rounded-full flex items-center gap-base transition-all" type="submit">
+<span class="material-symbols-outlined">save</span>
+                        기록하기
+                    </button>
+</div>
+</form>
+</section>
+<!-- List Area -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md" id="memoList">
+<!-- Memo cards will be injected here -->
+</div>
+<!-- Empty State (Hidden by default) -->
+<div class="hidden flex-col items-center justify-center py-xl text-on-surface-variant opacity-60" id="emptyState">
+<span class="material-symbols-outlined text-[64px] mb-base">note_stack</span>
+<p class="font-headline-sm text-headline-sm">아직 작성된 메모가 없어요.</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar (from JSON guidance) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-sm pb-gutter px-4 bg-surface/90 backdrop-blur-lg rounded-t-xl shadow-[0_-4px_12px_rgba(115,92,0,0.05)] md:hidden">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Memos</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Archive</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<!-- Script for functionality -->
+<script>
+        const memoForm = document.getElementById('memoWriter');
+        const memoList = document.getElementById('memoList');
+        const emptyState = document.getElementById('emptyState');
+        const memoContent = document.getElementById('memoContent');
+
+        // Color palettes for Post-it notes
+        const bgColors = [
+            'bg-primary-container', // Yellow
+            'bg-secondary-container', // Mint
+            'bg-tertiary-container' // Peach
+        ];
+
+        let memos = JSON.parse(localStorage.getItem('memos')) || [];
+
+        function saveMemos() {
+            localStorage.setItem('memos', JSON.stringify(memos));
+        }
+
+        function createMemoCard(memo, index) {
+            const card = document.createElement('div');
+            const colorClass = bgColors[index % bgColors.length];
+            card.className = `memo-card ${colorClass} p-md rounded-xl shadow-[0_4px_12px_rgba(115,92,0,0.05)] relative flex flex-col justify-between min-h-[160px] cursor-default`;
+            
+            const dateStr = new Date(memo.id).toLocaleDateString('ko-KR', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-sm">
+                    <span class="text-[12px] font-bold text-on-surface/40 uppercase tracking-wider">${dateStr}</span>
+                    <div class="flex gap-xs">
+                        <button onclick="deleteMemo(${memo.id})" class="text-on-surface/40 hover:text-error transition-colors p-1 rounded-full hover:bg-surface/20">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    </div>
+                </div>
+                <p class="font-body-md text-on-surface-variant flex-grow leading-relaxed whitespace-pre-wrap">${memo.text}</p>
+                <div class="absolute top-0 right-0 w-8 h-8 opacity-20 pointer-events-none" style="background: linear-gradient(225deg, transparent 50%, #000 50%); border-bottom-left-radius: 8px;"></div>
+            `;
+            return card;
+        }
+
+        function renderMemos() {
+            memoList.innerHTML = '';
+            if (memos.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+                memos.forEach((memo, index) => {
+                    memoList.appendChild(createMemoCard(memo, index));
+                });
+            }
+        }
+
+        function deleteMemo(id) {
+            memos = memos.filter(m => m.id !== id);
+            saveMemos();
+            renderMemos();
+        }
+
+        memoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = memoContent.value.trim();
+            if (text) {
+                const newMemo = {
+                    id: Date.now(),
+                    text: text
+                };
+                memos.unshift(newMemo);
+                saveMemos();
+                renderMemos();
+                memoContent.value = '';
+                
+                // Visual feedback
+                const btn = memoForm.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> 기록됨!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            }
+        });
+
+        // Initial render
+        renderMemos();
+    </script>
+</body></html>
