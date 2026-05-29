@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>콜백</title>
+  </head>
+  <body>
+    <script>
+        console.log("동기 1");
+        console.log("동기 2");
+        console.log("동기 3");
+        setTimeout(() => {
+          console.log("비동기 1");
+        });
+        setTimeout(() => {
+          console.log("비동기 2");
+        }, Math.random() * 2000 + 2000);
+        setTimeout(() => {
+          console.log("비동기 3");
+        }, 1000);
+    </script>
+  </body>
+</html>

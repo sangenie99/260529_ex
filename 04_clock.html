@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id = "clock"></section>
+    <script>
+        const clock = document.querySelector("#clock");
+        setInterval(() =>{
+            clock.textContent = new Date().toLocaleTimeString();
+        }, 500)
+    </script>
+    <!--setinterval과 settimeout을 잘 써야한다. 만약 너가 화면을 바꾸고 싶다? setinterval ㄱㄱ-->
+</body>
+</html>

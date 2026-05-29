@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function f1 () {
+            console.log("직업1")
+        }
+        function f2 () {
+            console.log("직업2")
+        }
+        function f3 () {
+            console.log("직업3")
+        }
+
+        setTimeout(()=>{
+            f1();
+        }, Math.random()*1000)
+        setTimeout(()=>{
+            f2();
+        }, Math.random()*1000)
+        setTimeout(()=>{
+            f3();
+        }, Math.random()*1000)
+    </script> 
+</body>
+</html>

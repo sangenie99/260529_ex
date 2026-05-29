@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise Chaining</title>
+  </head>
+  <body>
+    <script>
+      function f1() {
+        return new Promise((resolve) => {
+          return setTimeout(() => resolve(100), 1000);
+        });
+      }
+      const p1 = f1()
+      p1.then((v1) => console.log(v));
+    </script>
+  </body>
+</html>

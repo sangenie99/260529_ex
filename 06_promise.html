@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <script>
+
+      // callback 2가지 문제 : 1/순서 보장 X, 2/예외 처리 x
+      function f1(callback) {
+          return new Promise((
+              resolve, reject
+          )=>{
+              resolve();
+          });
+      }
+      function f2(callback) {
+          return new Promise((
+              resolve, reject
+          )=>{
+              reject(new Error("실패함"));
+          });
+      }
+      f1()
+      .then() => console.log("성공함")
+      f2().then() =>console.log("실패함")
+    </script>
+  </body>
+</html>

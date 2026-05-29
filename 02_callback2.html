@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콜백2</title>
+</head>
+<body>
+    <button>
+        눌러보세요
+    </button>
+    <script>
+        //동기 콜백
+        const a =['사과', '배', '오렌지']
+        a.forEach(console.log); //실행 함수를 받아서 동기적 실행
+        // 비동기 콜백
+        document.querySelector("button");
+        document.addEventListener("click", () => console.log("눌렀네요"));
+        // 누르는 액션을 했을 때야 taskqueue로 들어가서 -> 이벤트 루프 종료시 나옴
+
+        for(;;) {
+            console.log("무한 반복");
+        }
+    </script>
+    
+</body>
+</html>

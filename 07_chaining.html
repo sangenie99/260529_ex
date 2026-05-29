@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Chaining
+    </title>
+</head>
+<body>
+    <script>
+        function delay(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms)); // 프로미스가 허용되었음을 말함
+        }
+        delay(1000)
+        .then(()=>{
+            if (Math.random() >0.5) {
+                console.log("성공1")
+            } else {
+                throw new Error("실패1")
+            }
+        })
+        .then(()=>{
+            if (Math.random() >0.5) {
+                console.log("성공2")
+            } else {
+                throw new Error("실패2")
+            }
+        })
+        .then(()=> console.log("성공하셨네요?"))
+        .catch(()=> console.log("실패하셨네요?"))
+        .finally(()=> console.log("끝"))
+        // 종결
+    </script>
+</body>
+</html>
