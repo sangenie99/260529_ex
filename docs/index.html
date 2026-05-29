@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this is memo</title>
+    <!-- favicon, og, css framework setting, ga, hostdog-->
+    
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>메모 하러 가기</h1>
+      <button>이동</button>
+    </div>
+    <script>
+        const container = document.querySelector("#container");
+        const button = document.querySelector("container >button");
+        // '>' 하위
+      document.addEventListener("DOMContentLoaded", main);
+
+      function main() {
+        console.log("DOM 로딩 완료");
+        // 이벤트 타입 누락하거나 혼동하지 말 것(click <-> submit, input <-> change)
+        button.addEventListener("click", () => {
+            // event 생략해도 된다.
+            // 1. event.preventDefault -> form
+            // 2. event.target
+            location.href = "memo.html";
+            // 새창 띄우기는요?
+            // window.open("memo.html")
+        })
+      }
+    </script>
+  </body>
+</html>

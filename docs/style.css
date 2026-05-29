@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "OngleipParkDahyeon";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+        format("woff2");
+    font-weight: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "JejuStoneWall";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2")
+        format("woff2");
+    font-weight: normal;
+    font-display: swap;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url("./img/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    /* TODO: 텍스트랑 버튼이 잘 안보임 opacity로 가자 */
+}
